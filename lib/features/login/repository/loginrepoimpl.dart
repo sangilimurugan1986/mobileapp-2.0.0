@@ -10,9 +10,6 @@ class LoginRepoImpl extends LoginReposity {
     final _data = await apiService.postdata(path, data);
     // final result = workflowmain.fromJson(_data);
     return _data;
-    try {} catch (e) {
-      throw Exception();
-    }
   }
 
   @override

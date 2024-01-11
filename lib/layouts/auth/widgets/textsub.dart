@@ -17,7 +17,6 @@ class _TextsubState extends State<Textsub> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(widget.sLabel,
-        style: TextStyle(fontSize: 20, color: CupertinoColors.placeholderText));
+    return Text(widget.sLabel, style: TextStyle(fontSize: 18, color: CupertinoColors.systemGrey));
   }
 }

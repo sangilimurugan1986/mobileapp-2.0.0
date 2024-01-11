@@ -1,4 +1,4 @@
-package com.ezofis.vfive;
+package com.ezofis.mobile;
 
 import io.flutter.embedding.android.FlutterActivity;
 

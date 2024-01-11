@@ -8,7 +8,6 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../controllers/batchworkfolderbrowsecontroller.dart';
 import '../layouts/auth/widgets/fab.dart';
-import '../utils/helper/safe_area.dart';
 import 'breadcrumbs.dart';
 import 'buttonrounded.dart';
 import 'nodule_list.dart';
@@ -39,27 +38,17 @@ class BatchWorkBrowseFolderState extends State<BatchWorkBrowseFolder> {
     // TODO: implement build
     return iCurrentSelect == 'main'
         ? ConstrainedBox(
-            constraints: BoxConstraints(
-                minWidth: double.infinity, maxHeight: dheight), //470
+            constraints: BoxConstraints(minWidth: double.infinity, maxHeight: dheight), //470
             child: Expanded(
                 child: Container(
                     padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    // color: Colors.blue, // BrandColors.secondary.shade50,
+                    color: Colors.blue, // BrandColors.secondary.shade50,
                     child: Column(children: <Widget>[
-/*                  Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        child: Icon(
-                            MdiIcons
-                                .chevronLeftCircleOutline, //MdiIcons.arrowLeftThinCircleOutline  Icons.arrow_circle_left_outlined
-                            color: Colors.deepPurple),
-                      )),*/
                       SizedBox(
                         height: 10,
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 1, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 5),
                         child: Obx(() => Row(children: [
                               GestureDetector(
                                   onTap: () {
@@ -71,10 +60,9 @@ class BatchWorkBrowseFolderState extends State<BatchWorkBrowseFolder> {
                                           child: Icon(
                                         Icons.home,
                                         size: 22,
-                                        color:
-                                            controller.breadcrumbs.length == 0
-                                                ? Colors.grey.shade200
-                                                : Colors.grey.shade800,
+                                        color: controller.breadcrumbs.length == 0
+                                            ? Colors.grey.shade200
+                                            : Colors.grey.shade800,
                                       )))),
                               const SizedBox(
                                 width: 0,
@@ -108,37 +96,32 @@ class BatchWorkBrowseFolderState extends State<BatchWorkBrowseFolder> {
                                   width: 120,
                                   decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(.1),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
+                                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                   //color: Colors.black.withOpacity(.1),
                                   child: Center(
-                                      child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                        ButtonRounded(
-                                          label: 'Upload',
-                                          isSelected: false,
-                                          onPressed: () {
-                                            controller.onUpload();
-                                            debugPrint('========== ' +
-                                                iCurrentSelect.value);
-                                            setState(() {
-                                              iCurrentSelect = 'upload'.obs;
-                                            });
-                                          },
-                                        ),
-                                        SizedBox(height: 10),
-                                        ButtonRounded(
-                                          label: '   Scan   ',
-                                          isSelected: false,
-                                          onPressed: () {
-                                            controller.onScan();
-                                            setState(() {
-                                              iCurrentSelect = 'scan'.obs;
-                                            });
-                                          },
-                                        )
-                                      ])),
+                                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                                    ButtonRounded(
+                                      label: 'Upload',
+                                      isSelected: false,
+                                      onPressed: () {
+                                        controller.onUpload();
+                                        setState(() {
+                                          iCurrentSelect = 'upload'.obs;
+                                        });
+                                      },
+                                    ),
+                                    SizedBox(height: 10),
+                                    ButtonRounded(
+                                      label: '   Scan   ',
+                                      isSelected: false,
+                                      onPressed: () {
+                                        controller.onScan();
+                                        setState(() {
+                                          iCurrentSelect = 'scan'.obs;
+                                        });
+                                      },
+                                    )
+                                  ])),
                                 )
                               ]))
                           : Container()),

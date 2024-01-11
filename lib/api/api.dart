@@ -7,8 +7,6 @@ import '../utils/helper/aes_encryption.dart';
 import 'package:http/http.dart' as http;
 
 class Api extends GetxController {
-  final controller = Get.find<SessionController>();
-
   Dio client() {
     return Dio(
       //BaseOptions(baseUrl: 'http://52.172.32.88/eZenterpriseAPI/api'),
@@ -33,9 +31,10 @@ class Api extends GetxController {
         // baseUrl: 'http://52.172.32.88/eZenterpriseAPI/api/',
         baseUrl: 'http://52.172.32.88/CoreAPI/api/',
         headers: {
-          "Accept": "application/json;text/html",
+          //"Accept": "application/json;text/plain",
+          "Accept": "*/*",
           "Token": AaaEncryption.sToken,
-          "Content-Type": "application/json",
+          "Content-Type": "application/json;text/html",
         }));
 
     return dtemp;

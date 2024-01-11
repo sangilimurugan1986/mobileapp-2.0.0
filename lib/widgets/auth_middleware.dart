@@ -8,10 +8,9 @@ class AuthMiddleware extends GetMiddleware {
 /*  @override
   Future<GetNavConfig?> redirectDelegate(GetNavConfig route) async {
     final domain = store.read('domainmy') ?? '';
-    print('lllllllllllllllll');
-    print(route.currentPage?.name);
+
     if (route.currentPage?.name == '/') {
-      print('//////////////////////////');
+
 
       if (domain.toString().length > 6) {
         return GetNavConfig.fromRoute('/browse');

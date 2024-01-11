@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class TextInputsPassword extends StatefulWidget {
   final String? title;
@@ -51,11 +54,17 @@ class TextInputsPasswordState extends State<TextInputsPassword> {
         onChanged: widget.onChange,
         keyboardType: widget.type,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
           helperText: widget.errortext,
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: widget.hasError ? Colors.red : Colors.grey.shade300),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade600),
+          ),
           helperStyle: TextStyle(color: Colors.black26, fontSize: 16),
           suffixIcon: IconButton(
               onPressed: () {
@@ -64,19 +73,19 @@ class TextInputsPasswordState extends State<TextInputsPassword> {
                 });
               },
               icon: Icon(
-                _obscureText ? Icons.remove_red_eye_outlined : Icons.lock_outlined,
+                _obscureText ? MdiIcons.eyeOffOutline : MdiIcons.eyeOutline,
               )),
           //suffixIcon: Icon(Icons.lock),
           focusColor: Colors.white,
           hintStyle: TextStyle(
             color: Colors.grey,
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
           ),
           labelText: widget.title,
           labelStyle: TextStyle(
             color: Colors.grey,
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.w400,
           ),
         ),

@@ -26,11 +26,8 @@ class _CheckBoxRoundPopupState extends State<CheckBoxRoundPopup> {
           value: _checkbox,
           checkColor: Colors.blue,
           activeColor: Colors.black12,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           onChanged: (value) {
-            debugPrint('ccccccccccqc ' + _checkbox.toString());
-
             setState(() {
               _checkbox = !_checkbox;
             });

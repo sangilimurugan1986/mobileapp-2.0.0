@@ -26,27 +26,31 @@ class BatchWorkFolder extends StatelessWidget {
     return Container(
         padding: EdgeInsets.all(9),
         decoration: BoxDecoration(
+            //
             color: Colors.white12,
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: Column(children: [
+          //csr
+          //
           Container(
-            height: dheight, //235 orginal
+            height: dheight, //235 orginal  9585090090
             padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
             child: Container(
                 child: GridView.builder(
               //physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   //maxCrossAxisExtent: 540,
-                  mainAxisExtent: 250, //40,150,42,15,55,10,10,10,40 7
+                  mainAxisExtent: 250,
                   mainAxisSpacing: 0,
                   crossAxisCount: 1),
               itemCount: controller.folderDatas.length,
               itemBuilder: (BuildContext context, int index) {
                 return ConnectSingleItemFolder(
+                  //tiiprod
                   cMenu: controller.folderDatas[index],
                   iPosition: index,
                 );
-              },
+              }, //E:\TII_PROD_EZOFIS\new  //10.0.24 22
             )),
           )
         ]));

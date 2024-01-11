@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ez/controllers/session_controller.dart';
@@ -7,15 +6,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../routes.dart';
 import '../utils/helper/aes_encryption.dart';
 import '../utils/utils.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:encrypt/encrypt.dart' as enc;
+import 'package:intl/intl_standalone.dart';
 
 class AuthController extends GetxController {
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult>? connectivitySubscription;
+
   var isConnected = true.obs;
   var token = "".obs;
   var route = "".obs;
@@ -24,6 +26,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+
     connectivitySubscription =
         _connectivity.onConnectivityChanged.listen((ConnectivityResult result) async {
       await getConnectivity();
@@ -47,7 +50,7 @@ class AuthController extends GetxController {
     try {
       bool isConnectedResult = await Utils.checkInternetConnectivity();
       isConnected.value = isConnectedResult;
-      Future.delayed(Duration(milliseconds: 3000), () {
+      Future.delayed(Duration.zero, () {
         getUserInfoAndRedirect();
       });
     } on PlatformException catch (e) {
@@ -70,26 +73,9 @@ class AuthController extends GetxController {
   }
 
   readlocalData() async {
-    AaaEncryption.sToken = '';
-    SharedPreferences pre = await SharedPreferences.getInstance();
-    AaaEncryption.KeyVal = enc.Key.fromBase64(pre.getString('key').toString());
-    AaaEncryption.IvVal = enc.IV.fromBase64(pre.getString('iv').toString());
-    AaaEncryption.sToken = pre.getString('token').toString();
-
-    if (AaaEncryption.sToken.length > 4) {
-      String ss = pre.getString('Userdata').toString();
-      userdata = jsonDecode(AaaEncryption.decryptAESaaa(ss));
-      pre.setString('userid', userdata['id']);
-      pre.setString('username', userdata['firstName'] + " " + userdata['lastName']);
-      pre.setString('email', userdata['email']);
-      pre.commit();
-      //sessionController.setSessionuser(data);
-      final sessionController = Get.find<SessionController>();
-      sessionController.setSessionuser(userdata);
-
-      Get.offAndToNamed("/home");
-    } else
-      Get.offAndToNamed("/loginscreen");
+    final sessionController = Get.find<SessionController>();
+    sessionController.getSession();
+    Get.offAndToNamed("/loginscreen");
   }
 
   Future<void> logout() async {

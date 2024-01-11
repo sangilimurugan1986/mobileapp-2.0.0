@@ -9,10 +9,7 @@ import 'buttonwithicon.dart';
 class ConnectSingleItemFolder extends StatelessWidget {
   final controller = new FolderMainController();
   ConnectSingleItemFolder(
-      {Key? key,
-      this.isRounded = true,
-      required this.cMenu,
-      required this.iPosition})
+      {Key? key, this.isRounded = true, required this.cMenu, required this.iPosition})
       : super(key: key);
 
   final bool isRounded;
@@ -49,27 +46,24 @@ class ConnectSingleItemFolder extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                            padding: EdgeInsets.fromLTRB(10, 5, 5,
-                                5), //601 = 113, 236 =90, 214 =10,160= 207
+                            padding: EdgeInsets.fromLTRB(
+                                10, 5, 5, 5), //601 = 113, 236 =90, 214 =10,160= 207
                             child: Text(
-                              cMenu['Foldername'],
+                              cMenu['name'],
                               maxLines: 2,
                               overflow: TextOverflow.clip,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black87,
-                                  fontSize: 18),
+                                  fontWeight: FontWeight.bold, color: Colors.black87, fontSize: 18),
                             )),
                         //               SizedBox(height: 10),
-                        Padding(
+                        /*                      Padding(
                             padding: EdgeInsets.fromLTRB(10, 0, 5, 5),
                             child: Text(
                               cMenu['Description'],
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 14),
-                            )),
+                              style: TextStyle(color: Colors.black54, fontSize: 14),
+                            )),*/
                       ],
                     ))),
           ]),

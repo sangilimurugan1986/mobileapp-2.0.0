@@ -64,7 +64,6 @@ class FormMainState extends State<FormMain> {
     try {
       final response = await AuthRepo.getInboxSingleDetails(formId); //23 formids
       Map<String, dynamic> data = jsonDecode(AaaEncryption.decryptAESaaa(response.data));
-      print('');
       setState(() {
         isLoading.value = false;
         mdataGenerate = data;

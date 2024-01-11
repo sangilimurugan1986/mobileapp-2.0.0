@@ -61,6 +61,7 @@ class ApiManager implements Service {
         path,
         data: data,
       );
+
       // Check if the response status code is 200 (OK).
       if (response.statusCode == 200) {
         return response.data; // If successful, return the response data (List of dynamic).
@@ -91,17 +92,4 @@ class ApiManager implements Service {
       throw Exception('An error occurred: $e');
     }
   }
-
-/*  Dio clientWithHeader() {
-    var dtemp = Dio(BaseOptions(
-      // baseUrl: 'http://52.172.32.88/eZenterpriseAPI/api/',
-        baseUrl: 'http://52.172.32.88/CoreAPI/api/',
-        headers: {
-          "Accept": "application/json;text/html",
-          "Token": AaaEncryption.sToken,
-          "Content-Type": "application/json",
-        }));
-
-    return dtemp;
-  }*/
 }

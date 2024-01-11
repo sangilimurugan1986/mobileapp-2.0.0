@@ -35,8 +35,7 @@ class SignUpPage extends StatelessWidget {
     safeAreaHeight = safeArea['height']!;
     safeAreaWidth = safeArea['width']!;
 
-    debugPrint(
-        safeAreaHeight.toString() + 'h  login b' + safeAreaWidth.toString());
+    debugPrint(safeAreaHeight.toString() + 'h  login b' + safeAreaWidth.toString());
     return AuthLayout(
         // title
         title: 'Login',
@@ -106,24 +105,30 @@ class SignUpPage extends StatelessWidget {
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                     child: ButtonImg(
-                        sAssetImgPath: 'assets/images/files/google.png',
-                        sUrlLink: 'google')),
+                      sAssetImgPath: 'assets/images/files/google.png',
+                      sUrlLink: 'google',
+                      onTap: prints,
+                    )),
               ),
               Expanded(
                 flex: 3, // 20%
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                     child: ButtonImg(
-                        sAssetImgPath: 'assets/images/files/microsoft.png',
-                        sUrlLink: 'microsoft')),
+                      sAssetImgPath: 'assets/images/files/microsoft.png',
+                      sUrlLink: 'microsoft',
+                      onTap: prints,
+                    )),
               ),
               Expanded(
                 flex: 3, // 20%
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(5, 1, 5, 1),
                     child: ButtonImg(
-                        sAssetImgPath: 'assets/images/files/facebook.png',
-                        sUrlLink: 'facebook')),
+                      sAssetImgPath: 'assets/images/files/facebook.png',
+                      sUrlLink: 'facebook',
+                      onTap: prints,
+                    )),
               ),
             ],
           ),
@@ -156,5 +161,9 @@ class SignUpPage extends StatelessWidget {
             ],
           ),
         ]);
+  }
+
+  void prints() {
+    print(' clicke me..');
   }
 }

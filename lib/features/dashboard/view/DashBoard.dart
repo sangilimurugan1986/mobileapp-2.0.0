@@ -34,6 +34,7 @@ class _DashBoardBuilderState extends State<Dashboard> {
 
   @override
   void initState() {
+    print('Page init Dashboard');
     SVProgressHUD.show(status: "");
     final viewModelListWorkflow = Provider.of<DashboardViewModel>(context, listen: false);
     viewModelListWorkflow.fetchCountData();

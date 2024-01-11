@@ -46,6 +46,7 @@ class _WorkflowInitiateState extends State<WorkflowInitiate> {
 
   @override
   void initState() {
+    print('Page workflow init');
     final viewModel = Provider.of<WorkflowInitiateViewModel>(context, listen: false);
     viewModel.fetchData(controller.sFormId);
 

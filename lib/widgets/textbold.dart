@@ -18,7 +18,6 @@ class _TextboldState extends State<Textbold> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(widget.sLabel,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold));
+    return Text(widget.sLabel, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold));
   }
 }

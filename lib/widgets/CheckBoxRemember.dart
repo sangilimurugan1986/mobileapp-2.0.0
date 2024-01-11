@@ -35,8 +35,7 @@ class _CheckBoxRememberState extends State<CheckBoxRemember> {
                       }
                     }),
                     checkColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(3)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
                     value: _checkbox,
                     onChanged: (val) {
                       setState(() {

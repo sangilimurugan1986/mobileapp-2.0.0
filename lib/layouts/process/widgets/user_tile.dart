@@ -35,28 +35,28 @@ class UserTile extends StatelessWidget {
                           // NetworkImage(authcontroller.userdata['avathar']),
                           authcontroller.userdata['avatar'].toString()), //image url
                     )),
-
           // ...
           const SizedBox(width: 16),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // name
-              Text(
-                authcontroller.userdata['firstName'] + ' ' + authcontroller.userdata['lastName'],
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              Obx(() => Text(
+                    sessionController.Userdata.value.firstName +
+                        ' ' +
+                        sessionController.Userdata.value.lastName,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
               // ...
               const SizedBox(height: 2),
               // email
               Text(
-                authcontroller.userdata['email'],
+                sessionController.Userdata.value.email,
                 style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 12,
@@ -65,7 +65,7 @@ class UserTile extends StatelessWidget {
               const SizedBox(height: 2),
               // email
               Text(
-                authcontroller.userdata['role'],
+                sessionController.Userdata.value.role.replaceAll("_", " "),
                 style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 12,
@@ -77,9 +77,5 @@ class UserTile extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> getuserInfo() async {
-    SharedPreferences pre = await SharedPreferences.getInstance();
   }
 }

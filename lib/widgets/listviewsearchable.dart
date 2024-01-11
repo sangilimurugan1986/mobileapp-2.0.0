@@ -108,7 +108,6 @@ class ListViewSearchState extends State<ListViewSearch> {
 
   @override
   Widget build(BuildContext context) {
-    ////print(''lllll');
     return Obx(() => isLoading.value
         ? ListView.builder(
             shrinkWrap: true,
@@ -311,9 +310,6 @@ class ListViewSearchState extends State<ListViewSearch> {
   openForm() {
     controllerPanel.sFormId = widget.miSelectedData.wFormId;
     controllerPanel.repositoryId = widget.miSelectedData.repositoryId;
-    print('ssssssss');
-    print(controllerPanel.sFormId);
-    print(controllerPanel.repositoryId);
     controllerPanel.formbuttonList = ['Save', 'Submit'];
     //Navigator.pushNamed(context, "formviewinitiate");
     WidgetsBinding.instance.addPostFrameCallback((_) {

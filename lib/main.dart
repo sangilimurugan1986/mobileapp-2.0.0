@@ -3,6 +3,7 @@ import 'package:ez/controllers/browse_view_controller.dart';
 import 'package:ez/controllers/dashmaincontroller.dart';
 import 'package:ez/controllers/foldermaincontroller.dart';
 import 'package:ez/controllers/session_controller.dart';
+import 'package:ez/features/folder/view_model/viewmodelfolderlist.dart';
 import 'package:ez/features/login/viewmodel/loginviewmodel.dart';
 import 'package:ez/features/workflow/view_model/viewmodel.dart';
 import 'package:ez/features/workflowinitiate/viewmodel/viewmodel.dart';
@@ -31,6 +32,7 @@ import 'core/di/injection.dart';
 import 'features/dashboard/view_model/viewmodedashboard.dart';
 import 'features/workflow/view_model/viewmodeworkflowlist.dart';
 import 'models/popup/controllers/commentcontroller.dart';
+import 'package:intl/intl_standalone.dart';
 
 void initialize() {
   //SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
@@ -93,6 +95,9 @@ void main() async {
         ChangeNotifierProvider<WorkflowListViewModel>(
           create: (context) => sl.get<WorkflowListViewModel>(),
         ),
+        ChangeNotifierProvider<FolderListViewModel>(
+          create: (context) => sl.get<FolderListViewModel>(),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -117,11 +122,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(builder: (authController) {
       return ScreenUtilInit(
-/*        designSize: Size(
-          414,
-          902,
-        ),*/
-        //allowFontScaling: true,
         builder: (_, child) => GetMaterialApp(
             theme: ThemeData(
                 //primarySwatch: Colors.grey.shade100,

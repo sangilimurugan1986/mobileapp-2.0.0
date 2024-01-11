@@ -26,8 +26,6 @@ class InboxDetails {
       required this.bread});
 
   factory InboxDetails.fromJson(Map<String, dynamic> json) {
-/*    print('ffffffffffffffffffff');
-    print(json['formData']['formId'].toString());*/
     return new InboxDetails(
         requestNo: json['requestNo'],
         stage: json['stage'],

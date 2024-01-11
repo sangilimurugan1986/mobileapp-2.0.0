@@ -12,10 +12,10 @@ class ExploreScreen extends StatelessWidget {
           AppBarAction(icon: Icon(Icons.search), onPressed: () => {}),
           AppBarAction(icon: Icon(Icons.person_sharp), onPressed: () => {})
         ],
-        title: "Reels",
+        title: "Task",
       ),
       body: Center(
-        child: Text('Reels'),
+        child: Text('Task'),
       ),
     );
   }

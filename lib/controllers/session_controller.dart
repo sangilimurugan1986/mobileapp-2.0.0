@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../models/session.dart';
 import '../utils/UserDetails.dart';
+import '../utils/helper/aes_encryption.dart';
+import 'package:encrypt/encrypt.dart' as enc;
 
 class SessionController extends GetxController {
   final Userdata = UserDetails.empty().obs;
@@ -11,8 +13,8 @@ class SessionController extends GetxController {
   final token = ''.obs;
   final key = ''.obs;
   final iv = ''.obs;
-  final userid = 0.obs;
-  final twoFactorAuthendication = ''.obs;
+  final userid = ''.obs;
+  final twoFactorAuthendication = true.obs;
   final store = GetStorage();
   var userdata = '';
 
@@ -29,6 +31,14 @@ class SessionController extends GetxController {
     iv.value = session.iv;
     key.value = session.key;
     twoFactorAuthendication.value = session.twoFactorAuthentication;
+
+    AaaEncryption.sToken = token.value;
+    AaaEncryption.KeyVal = enc.Key.fromBase64(key.value);
+    AaaEncryption.IvVal = enc.IV.fromBase64(iv.value);
+
+    print(AaaEncryption.sToken);
+    print(AaaEncryption.KeyVal);
+    print(AaaEncryption.IvVal);
   }
 
   void initUserDetails(UserDetails data) {
@@ -77,7 +87,7 @@ class SessionController extends GetxController {
         initSession(_session);
         // assign user details
         if (userdetailsdata != '') {
-          Userdata.value = UserDetails.fromJson(userdetailsdata);
+          Userdata.value = UserDetails.fromJson(json.decode(userdetailsdata));
           initUserDetails(Userdata.value);
         }
       }

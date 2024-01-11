@@ -1,4 +1,5 @@
 import 'package:ez/core/ApiClient/ApiService.dart';
+import 'package:ez/features/folder/view_model/viewmodelfolderlist.dart';
 import 'package:ez/features/login/repository/loginrepo.dart';
 import 'package:ez/features/login/repository/loginrepoimpl.dart';
 import 'package:ez/features/login/viewmodel/loginviewmodel.dart';
@@ -15,6 +16,8 @@ import 'package:dio/dio.dart';
 import '../../features/dashboard/repository/repo_impl.dart';
 import '../../features/dashboard/repository/repository.dart';
 import '../../features/dashboard/view_model/viewmodedashboard.dart';
+import '../../features/folder/repository/repo_impl.dart';
+import '../../features/folder/repository/repository.dart';
 import '../../features/workflow/repository/repolist_impl.dart';
 import '../../features/workflow/repository/repositorylist.dart';
 import '../../features/workflow/view_model/viewmodeworkflowlist.dart';
@@ -40,4 +43,8 @@ setupLazySingleton() {
   //Workflow List
   sl.registerLazySingleton<WorkflowListRepo>(() => WorkflowListRepoImpl(sl()));
   sl.registerLazySingleton<WorkflowListViewModel>(() => WorkflowListViewModel(sl()));
+
+  //folder
+  sl.registerLazySingleton<FolderListRepo>(() => FolderListRepoImpl(sl()));
+  sl.registerLazySingleton<FolderListViewModel>(() => FolderListViewModel(sl()));
 }

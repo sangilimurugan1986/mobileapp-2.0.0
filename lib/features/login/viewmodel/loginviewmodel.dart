@@ -24,40 +24,37 @@ class LoginViewModel extends ChangeNotifier {
   String errormessage = "";
   final sessionController = Get.find<SessionController>();
 
-  Future<void> validateCredentials(var _data) async {
+  Future<void> validateCredentials(var _data, String sLoginFrom) async {
     loading = true;
     errormessage = "";
+    dynamic encryptedData;
 
     try {
-      final encryptedData =
-          await repo.validateCredentials(EndPoint.BaseUrl + EndPoint.login, _data);
+      switch (sLoginFrom) {
+        case 'web':
+          encryptedData = await repo.validateCredentials(EndPoint.BaseUrl + EndPoint.login, _data);
+          break;
+        case 'google':
+          encryptedData =
+              await repo.validateCredentials(EndPoint.BaseUrl + EndPoint.loginsocialGoogle, _data);
+          break;
+      }
+
       String decryptedData = AaaEncryption.dec_base64(encryptedData);
       final decryptedJson = json.decode(decryptedData);
       data = LoginResponse.fromJson(decryptedJson);
-
       //Assign Values
       AaaEncryption.sToken = data.token.toString();
       AaaEncryption.IvVal = enc.IV.fromBase64(data.iv.toString());
       AaaEncryption.KeyVal = enc.Key.fromBase64(data.key.toString());
-
+      sessionController.setSession(decryptedJson);
       //get user details and save in session & shared pref
       if (AaaEncryption.sToken.toString().length > 10) {
         final encryptedData = await repo.userDataCredentials(
             EndPoint.BaseUrl + EndPoint.getuserDetails, AaaEncryption.sToken);
 
         Map<String, dynamic> data = jsonDecode(AaaEncryption.decryptAESaaa(encryptedData));
-
-        SharedPreferences pre = await SharedPreferences.getInstance();
-        pre.setString('Userdata', encryptedData.toString());
-        pre.setString('userid', data['id'].toString());
-        pre.commit();
-        sessionController.setSessionuser(data);
-
-        pre.setString('userid', data['id']);
-        pre.setString('username', data['firstName'] + " " + data['lastName']);
-        pre.setString('email', data['email']);
-        pre.setString('avatar', data['avatar']);
-        pre.commit();
+        storeLoginDetails(data, encryptedData);
       }
     } catch (e) {
       errormessage = Strings.txt_error_fetchfailed;
@@ -65,5 +62,19 @@ class LoginViewModel extends ChangeNotifier {
       loading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> storeLoginDetails(Map<String, dynamic> data, dynamic encryptedData) async {
+    SharedPreferences pre = await SharedPreferences.getInstance();
+    pre.setString('Userdata', encryptedData.toString());
+    pre.setString('userid', data['id'].toString());
+    pre.commit();
+    sessionController.setSessionuser(data);
+
+    pre.setString('userid', data['id']);
+    pre.setString('username', data['firstName'] + " " + data['lastName']);
+    pre.setString('email', data['email']);
+    pre.setString('avatar', data['avatar']);
+    pre.commit();
   }
 }

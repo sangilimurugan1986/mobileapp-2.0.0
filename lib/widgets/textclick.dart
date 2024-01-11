@@ -19,8 +19,6 @@ class _TextclickState extends State<Textclick> {
   Widget build(BuildContext context) {
     return Text(widget.sLabel,
         style: TextStyle(
-            fontSize: 20,
-            color: CupertinoColors.placeholderText,
-            fontWeight: FontWeight.w600));
+            fontSize: 18, color: CupertinoColors.placeholderText, fontWeight: FontWeight.w600));
   }
 }

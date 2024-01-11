@@ -18,6 +18,6 @@ class _TextmainState extends State<Textmain> {
   @override
   Widget build(BuildContext context) {
     return Text(widget.sLabel,
-        style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold));
+        style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold, height: 1.1));
   }
 }

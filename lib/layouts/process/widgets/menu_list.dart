@@ -3,6 +3,9 @@ import 'package:ez/layouts/process/controller/processlayout_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../core/CustomColors.dart';
+import '../../../core/utils/strings.dart';
+import '../../../widgets/AlertDialogScreen.dart';
 import '../models/menuheading.dart';
 import '../models/menu.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -88,7 +91,10 @@ class MenuList extends StatelessWidget {
               label: 'Logout',
               icon: MdiIcons.logout,
               color: Colors.black,
-              onTap: () => controller.gototoast('/logout', 'Logout', context),
+              onTap: () => {
+                /*controller.gototoast('/logout', 'Logout', context)*/
+                showAlert(context)
+              },
             ),
             Divider(
               color: Colors.black12,
@@ -111,6 +117,47 @@ class MenuList extends StatelessWidget {
   }
 
   goto(String route) {}
+
+  void showAlert(BuildContext context) {
+    print('showalert.....');
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Alert Dialog Box"),
+        content: const Text("You have raised a Alert Dialog Box"),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              color: Colors.green,
+              padding: const EdgeInsets.all(14),
+              child: const Text("ok"),
+            ),
+          ),
+        ],
+      ),
+    );
+    /* AlertDialog(
+      title: Text(''),
+      content: Text('botitledy'),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: CustomColors.green),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No')),
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: CustomColors.red),
+            onPressed: () {},
+            child: const Text(
+              'Yes',
+            )),
+      ],
+    );*/
+  }
 
   final menus = [
     Menu(

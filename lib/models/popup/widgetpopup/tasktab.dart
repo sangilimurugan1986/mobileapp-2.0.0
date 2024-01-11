@@ -53,7 +53,6 @@ class _TaskTabState extends State<TaskTab> {
     setState(() {
       controller.dataFileListNew = tagObjs;
     });*/
-    debugPrint('678ccccccccccccccccccccccccccc');
   }
 
   @override

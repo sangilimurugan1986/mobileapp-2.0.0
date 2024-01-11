@@ -37,6 +37,7 @@ class _FormBuilderState extends State<InboxWorkflow> {
 
   @override
   void initState() {
+    print('Page Inbox');
     SVProgressHUD.show(status: "");
     final viewModelListWorkflow = Provider.of<WorkflowListViewModel>(context, listen: false);
     viewModelListWorkflow.fetchData();

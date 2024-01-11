@@ -13,6 +13,7 @@ class WorkflowDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Page Workflow Init');
     final controller = Get.put(TreeInboxListviewController());
     return Scaffold(
       appBar: CustomAppBar(

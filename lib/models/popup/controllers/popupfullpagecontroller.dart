@@ -46,7 +46,6 @@ class PopupFullPageController extends GetxController {
   getButtonlist() {
     wButtons = [];
     for (int i = 0; i < mFormJSon['rules'].length; i++) {
-      // print(mFormJSon['rules'][i]['fromBlockId'] + '  kkkk ' + sActivityId);
       if (mFormJSon['rules'][i]['fromBlockId'] == sActivityId) {
         wButtons.add(createIcons(mFormJSon['rules'][i]['proceedAction'].toString()));
       }

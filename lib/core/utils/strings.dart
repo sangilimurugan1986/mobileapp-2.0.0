@@ -32,14 +32,16 @@ class Strings {
   static const name = "NAME";
 
   // AlertDialog Keys
+  static const alert_logout_title = "Logout";
   static const alert_delete_title = "Delete Confirmation";
   static const alert_delete_body = "Are you sure you want to delete?";
-  static const alert_error_invalidform =
-      "Please update the form before submission";
+  static const alert_error_invalidform = "Please update the form before submission";
   static const alert_required_field = " is mandatory..!";
   static const alert_on_save = "Data saved successfully...!";
   static const txt_error_fetchfailed = "Failed to fetch data";
-  static const alert_error_invalidUser = "Please enter valid credentials";
+  static const alert_error_invalidUser = "Please enter valid Email";
+  static const alert_error_invalidPasswor = "Please enter valid password";
+  static const alert_error_invalidUserorPassword = "Invlaid User Credentials";
 
   //Layout Types
 

@@ -38,28 +38,40 @@ class TextInputsState extends State<TextInputs> {
 
   @override
   Widget build(BuildContext build) {
-    return TextFormField(
+    return Container(
+/*        decoration: BoxDecoration(
+          color: widget.hasError ? Colors.red.shade50 : widget.backgroundColor,
+          border: Border.all(color: widget.hasError ? Colors.red : widget.borderColor),
+          borderRadius: BorderRadius.circular(4),
+        ),*/
+        child: TextFormField(
       controller: textController,
       onChanged: widget.onChange,
       keyboardType: widget.type,
       style: TextStyle(
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: FontWeight.w500,
       ),
       decoration: InputDecoration(
         focusColor: Colors.white,
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: widget.hasError ? Colors.red : Colors.grey.shade300),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade600),
+        ),
         hintStyle: TextStyle(
           color: Colors.grey,
-          fontSize: 20,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
         ),
         labelText: widget.title,
         labelStyle: TextStyle(
           color: Colors.grey,
-          fontSize: 22,
+          fontSize: 18,
           fontWeight: FontWeight.w400,
         ),
       ),
-    );
+    ));
   }
 }

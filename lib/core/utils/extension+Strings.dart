@@ -7,8 +7,7 @@ extension FieldValidation on String {
     for (var panel in panels) {
       final index = controls.indexWhere((f) => f.jsonId == panel.id);
       if (index >= 0 && controls[index].isMandatory) {
-        errorMessage +=
-            "${controls[index].name} ${Strings.alert_required_field}";
+        errorMessage += "${controls[index].name} ${Strings.alert_required_field}";
         break;
       }
     }
@@ -22,8 +21,13 @@ extension FieldValidation on String {
   }
 
   bool get isValidPassword {
-    final passwordRegExp =
-        RegExp(r'^((?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%&*]{6,20})$/pre>');
+    final passwordRegExp = RegExp(r'^((?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%&*]{6,20})$/pre>');
     return passwordRegExp.hasMatch(this);
+  }
+
+  bool get validateStructure {
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(this);
   }
 }

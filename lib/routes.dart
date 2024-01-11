@@ -26,10 +26,12 @@ import 'core/components/bottom_menu/categories_screen.dart';
 import 'core/components/bottom_menu/explore_screen.dart';
 import 'core/components/bottom_menu/reading_list.dart';
 import 'features/dashboard/view/DashBoard.dart';
+import 'features/folder/view/folderlist.dart';
 import 'features/workflow/view/Inboxworkflow.dart';
 import 'features/workflow/view/workflowdetailscreen.dart';
 import 'models/popup/popupfullpage_inboxpagemvvm.dart';
 import 'models/popup/widgetpopup/popupfullpage_inboxpege.dart';
+import 'package:intl/intl_standalone.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -45,6 +47,7 @@ class AppRoutes {
   static const dashboard = "Dashboard";
   static const workflowdetail = "workflowdetails";
   static const fulldetails = 'Details';
+  static const folders = 'Folders';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
@@ -55,7 +58,6 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => CategoriesScreen());
       case AppRoutes.reading:
         return MaterialPageRoute(builder: (_) => ReadListScreen());
-
       case AppRoutes.workflow:
         return MaterialPageRoute(settings: settings, builder: (_) => Workflow());
       case AppRoutes.workflowinitiate:
@@ -71,6 +73,9 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => WorkflowDetails());
       case AppRoutes.fulldetails:
         return MaterialPageRoute(builder: (_) => PopupFullpageInboxPageMvvm());
+      case AppRoutes.folders:
+        return MaterialPageRoute(builder: (_) => FolderList());
+
       // case AppRoutes.workflowcreate:
       //   return MaterialPageRoute(
       //       builder: (_) => WorkflowCreate(
@@ -100,9 +105,9 @@ class AppRoutes {
       case 0:
         return AppRoutes.dashboard;
       case 1:
-        return AppRoutes.workflow;
+        return AppRoutes.folders;
       case 2:
-        return AppRoutes.categories;
+        return AppRoutes.workflow;
       case 3:
         return AppRoutes.videos;
       case 4:

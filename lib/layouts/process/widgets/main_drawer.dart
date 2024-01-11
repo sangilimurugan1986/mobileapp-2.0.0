@@ -18,6 +18,7 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    sessionController.getSession();
     return Container(
       width: MediaQuery.of(context).size.width * 0.70, //20.0,
       color: Colors.white,

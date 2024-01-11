@@ -11,13 +11,12 @@ class Session {
     required this.twoFactorAuthentication,
   });
 
-  factory Session.fromJson(Map<String, dynamic> json) =>
-      _$SessionFromJson(json);
+  factory Session.fromJson(Map<String, dynamic> json) => _$SessionFromJson(json);
 
   final String key;
   final String token;
   final String iv;
-  final String twoFactorAuthentication;
+  final bool twoFactorAuthentication;
 
   Map<String, dynamic> toJson() => _$SessionToJson(this);
 }

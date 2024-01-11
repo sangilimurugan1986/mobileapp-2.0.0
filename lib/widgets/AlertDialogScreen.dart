@@ -6,8 +6,7 @@ import 'package:get_storage/get_storage.dart';
 class AlertDialogScreen extends StatelessWidget {
   String title, body;
   Function(bool val) onTap;
-  AlertDialogScreen(
-      {required this.title, required this.body, required this.onTap});
+  AlertDialogScreen({required this.title, required this.body, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
