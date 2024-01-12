@@ -1,11 +1,13 @@
 class EndPoint {
   //:- Api Urls
-  //static const BaseUrl = "http://52.172.32.88/CoreAPI/api/";
-  static const BaseUrl = "https://demo.ezofis.com/CoreAPI/api/";
+  static const baseUrl = "http://52.172.32.88/CoreAPI/api/";
 
   //:- method endpoints
   static const login = "authentication/login";
-  static const loginsocialGoogle = "authentication/socialLogin";
-  static const getuserDetails = "authentication/userSession";
-  static const formworkflowinitiate = 'form/';
+  static const api_taskList = "form/19/entry/all";
+
+  static String getPath({required String method}) {
+    var path = baseUrl + method;
+    return path;
+  }
 }
