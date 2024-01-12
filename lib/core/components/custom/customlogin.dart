@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:ez/core/CustomColors.dart';
+import 'package:ez/core/components/custom/custom_chip.dart';
 import 'package:ez/core/snackbar/snack_bar.dart';
 import 'package:ez/core/utils/extension+Strings.dart';
 import 'package:ez/core/utils/strings.dart';
@@ -12,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+
+import 'custom_rating.dart';
 
 class CustomLogin extends StatefulWidget {
   CustomLogin(
@@ -61,6 +64,7 @@ class _CustomLoginState extends State<CustomLogin> {
   final _maxSeconds = 5 * 60;
   int _currentSecond = 0;
   Timer _timer = Timer(Duration(seconds: 1), () {});
+  double rating = 0;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
