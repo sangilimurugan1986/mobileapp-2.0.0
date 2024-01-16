@@ -27,6 +27,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../../v5/widgets/buttonimg.dart';
 import 'custom_rating.dart';
 
+import 'custom_rating.dart';
+
 class CustomLogin extends StatefulWidget {
   CustomLogin(
       {Key? key,
