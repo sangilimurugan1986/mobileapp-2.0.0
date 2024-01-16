@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../controllers/auth_controller.dart';
-import '../../../controllers/session_controller.dart';
+import '../../../core/v5/controllers/auth_controller.dart';
+import '../../../core/v5/controllers/session_controller.dart';
 import '../controller/processlayout_controller.dart';
 
 class UserTile extends StatelessWidget {

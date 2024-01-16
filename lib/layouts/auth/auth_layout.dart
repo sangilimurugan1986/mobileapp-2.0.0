@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../controllers/session_controller.dart';
+import '../../core/v5/controllers/session_controller.dart';
 import '../../features/workflow/view/onBoardScreen.dart';
 
 class AuthLayout extends StatelessWidget {

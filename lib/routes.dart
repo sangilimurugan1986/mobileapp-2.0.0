@@ -2,36 +2,31 @@ import 'package:ez/features/qr_scanner/view/qrscanner.dart';
 import 'package:ez/features/workflow/view/workflow.dart';
 import 'package:ez/features/workflow/workflowcreate/view/workflowcreate.dart';
 import 'package:ez/features/workflowinitiate/view/workflowinitiate.dart';
-import 'package:ez/models/popup/form/formmain.dart';
-import 'package:ez/pages/Taskcreen.dart';
-import 'package:ez/pages/foldermainscreen.dart';
-import 'package:ez/pages/forgotpassword.dart';
-import 'package:ez/pages/formmain_initiate.dart';
-import 'package:ez/pages/loading.dart';
-import 'package:ez/pages/login.dart';
-import 'package:ez/pages/lost_connection.dart';
-import 'package:ez/pages/otpMainPage.dart';
 
-import 'package:ez/pages/signup.dart';
-import 'package:ez/pages/dashmainscreen.dart';
-import 'package:ez/pages/taskmainscreen.dart';
-import 'package:ez/pages/tastscreenmain.dart';
-import 'package:ez/pages/webmainscreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'core/CustomColors.dart';
+import 'core/NewCom/PageMain.dart';
 import 'core/components/bottom_menu/categories_screen.dart';
 import 'core/components/bottom_menu/explore_screen.dart';
 import 'core/components/bottom_menu/reading_list.dart';
+import 'core/components/custom/custom_checkbox.dart';
+import 'core/components/custom/custom_chip.dart';
+import 'core/components/custom/custom_rating.dart';
+import 'core/components/custom/customlogin.dart';
+import 'core/v5/models/popup/popupfullpage_inboxpagemvvm.dart';
+import 'core/v5/pages/loading.dart';
+import 'core/v5/pages/login.dart';
+import 'core/v5/pages/lost_connection.dart';
 import 'features/dashboard/view/DashBoard.dart';
 import 'features/folder/view/folderlist.dart';
+import 'features/task_create/view/task_add.dart';
+import 'features/tasklist/view/tasklist.dart';
 import 'features/workflow/view/Inboxworkflow.dart';
 import 'features/workflow/view/workflowdetailscreen.dart';
-import 'models/popup/popupfullpage_inboxpagemvvm.dart';
-import 'models/popup/widgetpopup/popupfullpage_inboxpege.dart';
-import 'package:intl/intl_standalone.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -48,6 +43,8 @@ class AppRoutes {
   static const workflowdetail = "workflowdetails";
   static const fulldetails = 'Details';
   static const folders = 'Folders';
+  static const tasklist = "TaskList";
+  static const taskcreate = "TaskCreate";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
@@ -75,6 +72,13 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => PopupFullpageInboxPageMvvm());
       case AppRoutes.folders:
         return MaterialPageRoute(builder: (_) => FolderList());
+
+      case AppRoutes.tasklist:
+        return MaterialPageRoute(builder: (_) => TaskListScreen());
+      case AppRoutes.qrscanner:
+        return MaterialPageRoute(builder: (_) => QrScanner());
+      case AppRoutes.taskcreate:
+        return MaterialPageRoute(builder: (_) => TaskCreate());
 
       // case AppRoutes.workflowcreate:
       //   return MaterialPageRoute(
@@ -116,7 +120,8 @@ class AppRoutes {
   }
 
   static push(BuildContext context, String route) {
-    Navigator.of(context).pushNamed(route);
+    //Navigator.of(context).pushNamed(route);
+    Navigator.pushNamed(context, route);
   }
 
   static pop(BuildContext context, [dynamic? data]) {
@@ -145,7 +150,37 @@ class AppRoutes {
     GetPage(name: '/noConnection', page: () => LostConnection()),
     GetPage(
         name: '/loginscreen',
-        page: () => LoginPage(),
+        page: () => PageMain(),
+/*         page: () => CustomRating(
+               rating: rating,
+               onRatingChanged: (rate) {
+                 setState(() {
+                   rating = rate;
+                 });
+               },
+               color: CustomColors.red,
+             ),*/
+        //page: () => LoginPage(),
+        //page: () => CustomChip(),
+        //page: () => CustomCheckbox("Label1 ", "Label2", (p0) {}, (p0) {}),
+        /*page: () => CustomLogin(
+            // page: () => CustomCheckbox("Label1 ", "Label2", (p0) {}, (p0) {}),
+            // page: () => CustomChip(),
+             page: () => CustomRating(
+            //       rating: rating,
+            //       onRatingChanged: (rate) {
+            //         setState(() {
+            //           rating = rate;
+            //         });
+            //       },
+            //       color: CustomColors.red,
+            //     ),
+            loginType: 0,
+            signInAction: (username, password) {},
+            signUpAction: () {},
+            googleAction: () {},
+            microsoftAction: () {},
+            forgotPassword: () {}),*/
         transition: Transition.fadeIn,
         transitionDuration: Duration(milliseconds: 500)),
 /*    GetPage(

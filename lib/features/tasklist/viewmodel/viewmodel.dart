@@ -1,8 +1,10 @@
 import 'package:ez/core/ApiClient/endpoint.dart';
 import 'package:ez/core/utils/strings.dart';
 import 'package:ez/features/tasklist/repository/repository.dart';
-import 'package:ez/utils/helper/aes_encryption.dart';
+
 import 'package:flutter/cupertino.dart';
+
+import '../../../core/v5/utils/helper/aes_encryption.dart';
 
 class TaskListViewModel extends ChangeNotifier {
   late final TaskListRepo repo;
@@ -17,8 +19,8 @@ class TaskListViewModel extends ChangeNotifier {
     errormessage = "";
 
     try {
-      final encryptedData =
-          await repo.getData(EndPoint.getPath(method: dynamicPath), _data);
+      //final encryptedData = await repo.getData(EndPoint.getPath(method: dynamicPath), _data);
+      final encryptedData = await repo.getData(EndPoint.getPath('test'), _data);
       String decryptedData = AaaEncryption.dec_base64(encryptedData);
 
       debugPrint("decryptedData $decryptedData");

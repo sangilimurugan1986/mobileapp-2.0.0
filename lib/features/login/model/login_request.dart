@@ -26,8 +26,16 @@ class LoginRequest {
     return data;
   }
 
-  Future<bool> fieldsValidation() async {
+  Future<bool> usernamefieldsValidation() async {
     if (this.email!.isValidEmail) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> passwordfieldsValidation() async {
+    if (this.password!.validateStructure) {
       return true;
     } else {
       return false;

@@ -1,13 +1,10 @@
 import 'dart:io';
-import 'package:ez/controllers/browse_view_controller.dart';
-import 'package:ez/controllers/dashmaincontroller.dart';
-import 'package:ez/controllers/foldermaincontroller.dart';
-import 'package:ez/controllers/session_controller.dart';
+
 import 'package:ez/features/folder/view_model/viewmodelfolderlist.dart';
 import 'package:ez/features/login/viewmodel/loginviewmodel.dart';
 import 'package:ez/features/workflow/view_model/viewmodel.dart';
 import 'package:ez/features/workflowinitiate/viewmodel/viewmodel.dart';
-import 'package:ez/pages/login.dart';
+
 import 'package:ez/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,18 +17,24 @@ import 'package:catcher/catcher.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
-import 'controllers/auth_controller.dart';
-import 'controllers/forgot_controller.dart';
-import 'controllers/login_controller.dart';
-import 'controllers/signup_controller.dart';
-import 'controllers/taskcontroller.dart';
-import 'controllers/taskmaincontroller.dart';
-import 'controllers/webmaincontroller.dart';
+
 //import 'package:local_auth/local_auth.dart';
 import 'core/di/injection.dart';
+import 'core/v5/controllers/auth_controller.dart';
+import 'core/v5/controllers/browse_view_controller.dart';
+import 'core/v5/controllers/dashmaincontroller.dart';
+import 'core/v5/controllers/foldermaincontroller.dart';
+import 'core/v5/controllers/forgot_controller.dart';
+import 'core/v5/controllers/login_controller.dart';
+import 'core/v5/controllers/session_controller.dart';
+import 'core/v5/controllers/signup_controller.dart';
+import 'core/v5/controllers/taskcontroller.dart';
+import 'core/v5/controllers/taskmaincontroller.dart';
+import 'core/v5/controllers/webmaincontroller.dart';
+import 'core/v5/models/popup/controllers/commentcontroller.dart';
 import 'features/dashboard/view_model/viewmodedashboard.dart';
 import 'features/workflow/view_model/viewmodeworkflowlist.dart';
-import 'models/popup/controllers/commentcontroller.dart';
+
 import 'package:intl/intl_standalone.dart';
 
 void initialize() {
@@ -125,7 +128,6 @@ class MyApp extends StatelessWidget {
         builder: (_, child) => GetMaterialApp(
             theme: ThemeData(
                 //primarySwatch: Colors.grey.shade100,
-
                 fontFamily: 'Outfit',
                 colorScheme: ColorScheme.fromSwatch()
                     .copyWith(secondary: Colors.purple, background: Colors.white),

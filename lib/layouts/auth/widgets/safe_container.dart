@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/safe_area.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/v5/utils/helper/safe_area.dart';
 
 class SafeContainer extends StatelessWidget {
   const SafeContainer({Key? key, required this.child}) : super(key: key);

@@ -2,16 +2,30 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:ez/core/CustomColors.dart';
+import 'package:ez/core/components/custom/custom_chip.dart';
 import 'package:ez/core/snackbar/snack_bar.dart';
 import 'package:ez/core/utils/extension+Strings.dart';
 import 'package:ez/core/utils/strings.dart';
 import 'package:ez/layouts/auth/widgets/logo.dart';
-import 'package:ez/widgets/button.dart';
-import 'package:ez/widgets/buttonimg.dart';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:provider/provider.dart';
+
+import '../../../features/login/model/login_request.dart';
+import '../../../features/login/viewmodel/loginviewmodel.dart';
+import '../../../features/workflow/view/onBoardScreen.dart';
+import '../../v5/controllers/login_controller.dart';
+import '../../v5/utils/helper/aes_encryption.dart';
+import '../../v5/widgets/button.dart';
+
+import 'package:google_sign_in/google_sign_in.dart';
+import '../../v5/widgets/buttonimg.dart';
+import 'custom_rating.dart';
 
 class CustomLogin extends StatefulWidget {
   CustomLogin(
@@ -49,8 +63,7 @@ class CustomLogin extends StatefulWidget {
 }
 
 class _CustomLoginState extends State<CustomLogin> {
-  final _biggerFont =
-      const TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold);
+  final _biggerFont = const TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold);
   late bool _passwordVisible = false;
   bool rememberMe = false;
   bool timerFinsihed = false;
@@ -61,10 +74,14 @@ class _CustomLoginState extends State<CustomLogin> {
   final _maxSeconds = 5 * 60;
   int _currentSecond = 0;
   Timer _timer = Timer(Duration(seconds: 1), () {});
+  double rating = 0;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   OtpFieldController otpController = OtpFieldController();
+  final controller = Get.put(LoginController());
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  GoogleSignInAccount? _userObj;
 
   @override
   void initState() {
@@ -85,8 +102,7 @@ class _CustomLoginState extends State<CustomLogin> {
       Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(
-                "assets/images/background/back.jpeg"), // <-- BACKGROUND IMAGE
+            image: AssetImage("assets/images/background/back.jpeg"), // <-- BACKGROUND IMAGE
             fit: BoxFit.cover,
           ),
         ),
@@ -112,9 +128,7 @@ class _CustomLoginState extends State<CustomLogin> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Align(
-                        child: Text("Hi!", style: _biggerFont),
-                        alignment: Alignment.centerLeft),
+                    Align(child: Text("Hi!", style: _biggerFont), alignment: Alignment.centerLeft),
                     Text("Welcome", style: _biggerFont),
                     Text(
                       "Sign in to your Account",
@@ -129,32 +143,26 @@ class _CustomLoginState extends State<CustomLogin> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Text("Or via social media",
-                      style: TextStyle(color: CustomColors.paleblue)),
+                  Text("Or via social media", style: TextStyle(color: CustomColors.paleblue)),
                   SizedBox(
                     height: 20,
                   ),
                   Row(
                     children: [
                       Spacer(),
-                      GestureDetector(
-                        onTap: () => widget.googleAction,
-                        child: Container(
-                            margin: EdgeInsets.fromLTRB(2, 0, 5, 0),
-                            child: ButtonImg(
-                              sAssetImgPath: 'assets/images/files/google.png',
-                              sUrlLink: 'google',
-                            )),
-                      ),
-                      GestureDetector(
-                        onTap: () => widget.microsoftAction,
-                        child: Container(
-                            margin: EdgeInsets.fromLTRB(5, 0, 2, 0),
-                            child: ButtonImg(
-                                sAssetImgPath:
-                                    'assets/images/files/microsoft.png',
-                                sUrlLink: 'microsoft')),
-                      ),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(2, 0, 5, 0),
+                          child: ButtonImg(
+                            sAssetImgPath: 'assets/images/files/google.png',
+                            sUrlLink: 'google',
+                            onTap: () => {googlelogin(context)},
+                          )),
+                      Container(
+                          margin: EdgeInsets.fromLTRB(5, 0, 2, 0),
+                          child: ButtonImg(
+                              sAssetImgPath: 'assets/images/files/microsoft.png',
+                              sUrlLink: 'microsoft',
+                              onTap: () => {googlelogin(context)})),
                       Spacer(),
                     ],
                   ),
@@ -183,6 +191,44 @@ class _CustomLoginState extends State<CustomLogin> {
         ),
       ),
     ]);
+  }
+
+  googlelogin(BuildContext ctx) {
+    _googleSignIn.signIn().then((userdetail) {
+      socialLogin(userdetail!.email.toString(), ctx);
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  // socialLogin(String email, BuildContext ctx) {
+  Future socialLogin(String email, BuildContext ctx) async {
+    final loginRequest = LoginRequest(email: email, loggedFrom: "MOBILE", portalId: 0);
+    bool isValidLogin = await loginRequest.usernamefieldsValidation();
+
+    if (!isValidLogin) {
+      controller.hasEmailError.value = true;
+      return Snack.errorSnack(ctx, Strings.alert_error_invalidUser);
+    } else {
+      final requestbody = {
+        "email": loginRequest.email,
+        "loggedFrom": loginRequest.loggedFrom,
+        "portalId": loginRequest.portalId,
+        "tenantId": 0
+      };
+
+      final viewmodel = Provider.of<LoginViewModel>(ctx, listen: false);
+      await viewmodel.validateCredentials(requestbody, 'google');
+      if (viewmodel.loading) {
+        CircularProgressIndicator();
+      } else {
+        if (AaaEncryption.sToken.toString().length > 10) {
+          Navigator.of(ctx).push(MaterialPageRoute(builder: (ctx) => OnBoardScreen()));
+        } else {
+          Snack.errorSnack(ctx, Strings.alert_error_invalidUserorPassword);
+        }
+      }
+    }
   }
 
   Card buildType_Email_password() {
@@ -221,18 +267,15 @@ class _CustomLoginState extends State<CustomLogin> {
                       hintText: Strings.txt_lable_email,
                       contentPadding: EdgeInsets.all(10),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7.0),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7),
                       )),
                 ),
@@ -248,18 +291,15 @@ class _CustomLoginState extends State<CustomLogin> {
                     obscureText: !_passwordVisible,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7.0),
                       ),
                       border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: CustomColors.grey, width: 1.5),
+                          borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                           borderRadius: BorderRadius.circular(7)),
                       hintText: Strings.txt_lable_password,
                       contentPadding: EdgeInsets.all(10),
@@ -269,9 +309,7 @@ class _CustomLoginState extends State<CustomLogin> {
                             _passwordVisible = !_passwordVisible;
                           });
                         },
-                        child: Icon(_passwordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off),
+                        child: Icon(_passwordVisible ? Icons.visibility : Icons.visibility_off),
                       ),
                     )),
                 //SizedBox
@@ -306,8 +344,7 @@ class _CustomLoginState extends State<CustomLogin> {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Button(
                     onPressed: () {
-                      widget.signInAction(
-                          emailController.text, passwordController.text);
+                      widget.signInAction(emailController.text, passwordController.text);
                     },
                     label: Strings.txt_lable_signin,
                     isFullWidth: true,
@@ -360,18 +397,15 @@ class _CustomLoginState extends State<CustomLogin> {
                       hintText: Strings.txt_lable_email,
                       contentPadding: EdgeInsets.all(10),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7.0),
                       ),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: CustomColors.grey, width: 1.5),
+                        borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                         borderRadius: BorderRadius.circular(7),
                       )),
                 ),
@@ -387,13 +421,10 @@ class _CustomLoginState extends State<CustomLogin> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if (emailController.text.isEmpty ||
-                          !emailController.text.isValidEmail) {
-                        Snack.errorSnack(
-                            context, Strings.alert_error_invalidEmail);
+                      if (emailController.text.isEmpty || !emailController.text.isValidEmail) {
+                        Snack.errorSnack(context, Strings.alert_error_invalidEmail);
                       } else {
-                        Snack.successSnack(
-                            context, Strings.txt_label_success_email_otpsent);
+                        Snack.successSnack(context, Strings.txt_label_success_email_otpsent);
                         _isVisible = true;
                         widget.cardHeightDivision = 2.3;
                         _timer.cancel();
@@ -423,8 +454,7 @@ class _CustomLoginState extends State<CustomLogin> {
                           keyboardType: TextInputType.number,
                           length: 6,
                           width: MediaQuery.of(context).size.width,
-                          fieldWidth:
-                              (MediaQuery.of(context).size.width / 6) - 30,
+                          fieldWidth: (MediaQuery.of(context).size.width / 6) - 30,
                           style: TextStyle(fontSize: 12),
                           textFieldAlignment: MainAxisAlignment.spaceAround,
                           fieldStyle: FieldStyle.underline,
@@ -438,8 +468,7 @@ class _CustomLoginState extends State<CustomLogin> {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Button(
                           onPressed: () {
-                            widget.signInAction(
-                                emailController.text, otpController);
+                            widget.signInAction(emailController.text, otpController);
                           },
                           label: Strings.txt_lable_signin,
                           isFullWidth: true,
@@ -459,8 +488,7 @@ class _CustomLoginState extends State<CustomLogin> {
                                   _timer.cancel();
                                   _startTimer();
                                   setState(() {
-                                    otpSugession =
-                                        Strings.txt_label_otpsugession;
+                                    otpSugession = Strings.txt_label_otpsugession;
                                   });
                                 },
                                 child: Text(Strings.txt_lable_resend),
@@ -517,12 +545,10 @@ class _CustomLoginState extends State<CustomLogin> {
                       borderSide: BorderSide(),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: CustomColors.grey, width: 1.5),
+                      borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: CustomColors.grey, width: 1.5),
+                      borderSide: const BorderSide(color: CustomColors.grey, width: 1.5),
                     ),
                   ),
                   initialCountryCode: 'IN',
@@ -542,13 +568,10 @@ class _CustomLoginState extends State<CustomLogin> {
                   ),
                   onPressed: () {
                     setState(() {
-                      if (mobileNumber.isEmpty ||
-                          !mobileNumber.isValidPhoneNumber) {
-                        Snack.errorSnack(
-                            context, Strings.alert_error_invalidMobile);
+                      if (mobileNumber.isEmpty || !mobileNumber.isValidPhoneNumber) {
+                        Snack.errorSnack(context, Strings.alert_error_invalidMobile);
                       } else {
-                        Snack.successSnack(
-                            context, Strings.txt_label_success_mobile_otpsent);
+                        Snack.successSnack(context, Strings.txt_label_success_mobile_otpsent);
                         _isVisible = true;
                         widget.cardHeightDivision = 2.3;
                         _timer.cancel();
@@ -578,8 +601,7 @@ class _CustomLoginState extends State<CustomLogin> {
                           keyboardType: TextInputType.number,
                           length: 6,
                           width: MediaQuery.of(context).size.width,
-                          fieldWidth:
-                              (MediaQuery.of(context).size.width / 6) - 30,
+                          fieldWidth: (MediaQuery.of(context).size.width / 6) - 30,
                           style: TextStyle(fontSize: 12),
                           textFieldAlignment: MainAxisAlignment.spaceAround,
                           fieldStyle: FieldStyle.underline,
@@ -613,8 +635,7 @@ class _CustomLoginState extends State<CustomLogin> {
                                   _timer.cancel();
                                   _startTimer();
                                   setState(() {
-                                    otpSugession =
-                                        Strings.txt_label_otpsugession;
+                                    otpSugession = Strings.txt_label_otpsugession;
                                   });
                                 },
                                 child: Text(Strings.txt_lable_resend),
@@ -653,10 +674,8 @@ class _CustomLoginState extends State<CustomLogin> {
     final secondsPerMinute = 60;
     final secondsLeft = _maxSeconds - _currentSecond;
 
-    var formattedMinutesLeft =
-        (secondsLeft ~/ secondsPerMinute).toString().padLeft(2, '0');
-    var formattedSecondsLeft =
-        (secondsLeft % secondsPerMinute).toString().padLeft(2, '0');
+    var formattedMinutesLeft = (secondsLeft ~/ secondsPerMinute).toString().padLeft(2, '0');
+    var formattedSecondsLeft = (secondsLeft % secondsPerMinute).toString().padLeft(2, '0');
 
     return '$formattedMinutesLeft : $formattedSecondsLeft';
   }

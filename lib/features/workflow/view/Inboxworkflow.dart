@@ -4,14 +4,16 @@ import 'package:ez/core/CustomColors.dart';
 
 import 'package:ez/layouts/process/widgets/main_drawer.dart';
 import 'package:ez/routes.dart';
-import 'package:ez/widgets/button.dart';
+
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import '../../../controllers/session_controller.dart';
-import '../../../controllers/treeboxlistviewcontroller.dart';
+
 import '../../../core/CustomAppBar.dart';
+import '../../../core/v5/controllers/session_controller.dart';
+import '../../../core/v5/controllers/treeboxlistviewcontroller.dart';
+import '../../../core/v5/models/MenuInbox.dart';
 import '../../../layouts/search/controller/searchlayout_controller.dart';
-import '../../../models/MenuInbox.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';

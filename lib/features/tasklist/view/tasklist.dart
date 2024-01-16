@@ -1,7 +1,7 @@
 import 'package:ez/core/ApiClient/endpoint.dart';
 import 'package:ez/core/CustomAppBar.dart';
 import 'package:ez/core/CustomColors.dart';
-import 'package:ez/core/chip.dart';
+
 import 'package:ez/core/utils/strings.dart';
 import 'package:ez/features/task_create/view/task_add.dart';
 import 'package:ez/features/tasklist/model/Filter.dart';
@@ -23,8 +23,7 @@ class TaskListScreen extends StatefulWidget {
 }
 
 class _TaskListScreenState extends State<TaskListScreen> {
-  final _biggerFont =
-      const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold);
+  final _biggerFont = const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold);
   final _smallerFont = const TextStyle(fontSize: 10.0);
 
   final viewmodel = sl.get<TaskListViewModel>();
@@ -77,7 +76,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
     _hasMore = true;
 
     String formId = "19";
-    String path = EndPoint.getPath(method: "form/${formId}/entry/all");
+    // String path = EndPoint.getPath(method: "form/${formId}/entry/all");
 
     final requestBody = TaskRequest(
         mode: "BROWSE",
@@ -85,11 +84,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
         groupBy: "",
         filterBy: [
           FilterBy(filters: [
-            Filter(
-                criteria: "type",
-                condition: "IS_EQUALS_TO",
-                value: "Task",
-                dataType: "")
+            Filter(criteria: "type", condition: "IS_EQUALS_TO", value: "Task", dataType: "")
           ], groupCondition: "")
         ],
         itemsPerPage: Strings.K_MAX_RECORDS_PER_PAGE,
@@ -112,8 +107,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
               }),
           AppBarAction(
               onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => TaskCreate()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => TaskCreate()));
               },
               icon: Icon(Icons.add))
         ],
@@ -127,8 +121,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
         itemBuilder: (BuildContext context, int index) {
           return listRow(index);
         },
-        separatorBuilder: (BuildContext context, int index) => Divider(
-            height: 0.1, color: CustomColors.grey, indent: 20, endIndent: 30),
+        separatorBuilder: (BuildContext context, int index) =>
+            Divider(height: 0.1, color: CustomColors.grey, indent: 20, endIndent: 30),
       ),
     );
   }
@@ -156,12 +150,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
           children: [
             Row(
               children: [
-                Text("arun@ezofis.com",
-                    overflow: TextOverflow.ellipsis, style: _biggerFont),
+                Text("arun@ezofis.com", overflow: TextOverflow.ellipsis, style: _biggerFont),
                 SizedBox(width: 10),
-                Text("(Owner)",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14)),
+                Text("(Owner)", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14)),
                 Spacer(),
                 IconButton(
                   icon: Icon(
@@ -175,12 +166,9 @@ class _TaskListScreenState extends State<TaskListScreen> {
             Row(
               children: [
                 Text("sangili.murugan@ezofis.com",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14)),
+                    overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14)),
                 SizedBox(width: 10),
-                Text("(Assigned)",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 14)),
+                Text("(Assigned)", overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14)),
                 Spacer(),
                 IconButton(onPressed: () {}, icon: Icon(Icons.edit, size: 15)),
               ],
@@ -188,8 +176,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
             SizedBox(height: 20),
             Row(
               children: [
-                Text("Status",
-                    overflow: TextOverflow.ellipsis, style: _smallerFont),
+                Text("Status", overflow: TextOverflow.ellipsis, style: _smallerFont),
                 SizedBox(width: 10),
                 Text("Completed",
                     overflow: TextOverflow.ellipsis,
@@ -224,49 +211,37 @@ class _TaskListScreenState extends State<TaskListScreen> {
                   Row(children: [
                     Text(Strings.txt_header_criteria, style: _biggerFont),
                     Spacer(),
-                    Text(
-                        _selectedCriteria!.isEmpty
-                            ? Strings.txt_label_mandatory
-                            : "",
-                        style:
-                            TextStyle(fontSize: 10, color: CustomColors.red)),
+                    Text(_selectedCriteria!.isEmpty ? Strings.txt_label_mandatory : "",
+                        style: TextStyle(fontSize: 10, color: CustomColors.red)),
                   ]),
-                  MultiSelectChip(
+/*                  MultiSelectChip(
                     criteriaList,
                     onSelectionChanged: (criteriaList) {
                       this.setState(() {
                         _selectedCriteria = criteriaList;
                       });
                     },
-                  ),
+                  ),*/
                   Row(children: [
                     Text(Strings.txt_header_condition, style: _biggerFont),
                     Spacer(),
-                    Text(
-                        _selectedCondition!.isEmpty
-                            ? Strings.txt_label_mandatory
-                            : "",
-                        style:
-                            TextStyle(fontSize: 10, color: CustomColors.red)),
+                    Text(_selectedCondition!.isEmpty ? Strings.txt_label_mandatory : "",
+                        style: TextStyle(fontSize: 10, color: CustomColors.red)),
                   ]),
-                  MultiSelectChip(
+/*                  MultiSelectChip(
                     criteriaList,
                     onSelectionChanged: (conditionList) {
                       setState(() {
                         _selectedCondition = conditionList;
                       });
                     },
-                  ),
+                  ),*/
                   Row(
                     children: [
                       Text(Strings.txt_header_value, style: _biggerFont),
                       Spacer(),
-                      Text(
-                          _selectedCriteria!.isEmpty
-                              ? Strings.txt_label_mandatory
-                              : "",
-                          style:
-                              TextStyle(fontSize: 10, color: CustomColors.red)),
+                      Text(_selectedCriteria!.isEmpty ? Strings.txt_label_mandatory : "",
+                          style: TextStyle(fontSize: 10, color: CustomColors.red)),
                     ],
                   ),
                   SizedBox(
@@ -274,13 +249,11 @@ class _TaskListScreenState extends State<TaskListScreen> {
                     child: TextField(
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: CustomColors.sapphireBlue, width: 1),
+                          borderSide: const BorderSide(color: CustomColors.sapphireBlue, width: 1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: CustomColors.sapphireBlue, width: 1),
+                          borderSide: const BorderSide(color: CustomColors.sapphireBlue, width: 1),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         hintText: '',

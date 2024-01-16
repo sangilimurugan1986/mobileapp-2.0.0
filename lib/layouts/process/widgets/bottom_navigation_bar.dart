@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controllers/browse_view_controller.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../../../core/v5/controllers/browse_view_controller.dart';
 import 'bottom_bar.dart';
 
 class BottomNavigationBar extends StatelessWidget {

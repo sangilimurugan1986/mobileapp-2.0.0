@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../../controllers/session_controller.dart';
+import '../../../core/v5/controllers/session_controller.dart';
 import '../controller/searchlayout_controller.dart';
 import 'menu_list.dart';
 import 'menu_tile.dart';

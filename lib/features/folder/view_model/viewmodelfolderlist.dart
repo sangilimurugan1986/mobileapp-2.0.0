@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:ez/utils/helper/aes_encryption.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../../core/v5/controllers/session_controller.dart';
+import '../../../core/v5/utils/helper/aes_encryption.dart';
 import '../repository/repository.dart';
 
 class FolderListViewModel extends ChangeNotifier {
@@ -53,7 +57,6 @@ class FolderListViewModel extends ChangeNotifier {
     try {
       // Call the getFolderData() method for  folder list  using api
       Folderdata = await repo.getFolderData(AaaEncryption.EncryptDatatest(jsonEncode(stemp)));
-
       SVProgressHUD.dismiss(); //
     } catch (e) {
       // If an exception occurs during the API call, set the error message to display the error.
@@ -63,5 +66,27 @@ class FolderListViewModel extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     }
+  }
+
+  bool getBisEdit(dynamic dOwnerList, dynamic dCordinatorList) {
+    final sessionController = Get.find<SessionController>();
+    if (dOwnerList != null) {
+      for (int i = 0; i < dOwnerList.length; i++) {
+        if (dOwnerList[i]['id'] == sessionController.userid.value) {
+          return true;
+        }
+      }
+    }
+
+    if (dCordinatorList != null) {
+      for (int i = 0; i < dCordinatorList.length; i++) {
+        if (dCordinatorList[i]['id'].toString() == sessionController.userid.value.toString()) {
+          return true;
+        }
+      }
+    }
+/*    print(dOwnerList.length.toString());
+    print(dCordinatorList.length.toString());*/
+    return false;
   }
 }

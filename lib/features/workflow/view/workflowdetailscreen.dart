@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../../controllers/treeboxlistviewcontroller.dart';
 import '../../../core/CustomAppBar.dart';
 import '../../../core/CustomColors.dart';
-import '../../../widgets/listviewsearchable.dart';
+import '../../../core/v5/controllers/treeboxlistviewcontroller.dart';
+import '../../../core/v5/widgets/listviewsearchable.dart';
 
 class WorkflowDetails extends StatelessWidget {
   //

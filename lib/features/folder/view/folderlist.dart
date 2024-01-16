@@ -39,6 +39,7 @@ class _DashBoardBuilderState extends State<FolderList> {
   Widget build(BuildContext context) {
     final viewmodel = Provider.of<FolderListViewModel>(context);
     folderlist = viewmodel.Folderdata;
+    print('');
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -67,13 +68,15 @@ class _DashBoardBuilderState extends State<FolderList> {
                               // TODO: Display the list items and load more when needed
                               return Column(children: [
                                 Container(
-                                    height: 200,
-                                    color: Colors.grey.shade200,
+                                    height: 270,
+                                    color: Colors.blue.shade50,
                                     padding: EdgeInsets.all(5),
                                     child: ConnectSingleItemFolder(
                                       //tiiprod
                                       cMenu: folderlist[index],
                                       iPosition: index,
+                                      bIsEdit: viewmodel.getBisEdit(folderlist[index]['ownerlist'],
+                                          folderlist[index]['coordinatorlist']),
                                     ))
                               ]);
                             },

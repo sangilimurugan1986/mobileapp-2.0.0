@@ -1,10 +1,11 @@
-import 'package:ez/controllers/session_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../../../controllers/topbar_controller.dart'; //357
-import '../../../widgets/text_input_searchable.dart';
+
+import '../../../core/v5/controllers/session_controller.dart';
+import '../../../core/v5/controllers/topbar_controller.dart';
+
 import '../controller/processlayout_controller.dart';
 
 class TopBarDesign extends StatelessWidget implements PreferredSizeWidget {
@@ -26,8 +27,8 @@ class TopBarDesign extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+        borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
         child: Stack(children: <Widget>[
           Container(
               color: Colors.cyanAccent,
@@ -68,8 +69,7 @@ class TopBarDesign extends StatelessWidget implements PreferredSizeWidget {
             children: [
               ClipRRect(
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(25),
-                      bottomRight: Radius.circular(25)),
+                      topRight: Radius.circular(25), bottomRight: Radius.circular(25)),
                   child: Container(
                       color: Colors.purple,
                       padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -86,38 +86,35 @@ class TopBarDesign extends StatelessWidget implements PreferredSizeWidget {
                     margin: EdgeInsets.fromLTRB(0, 15, 7, 0),
                     //color: Colors.red,
                     height: 42,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          OutlinedButton(
-                            onPressed: () {
-                              debugPrint('Top Bar Notification Icon');
-                            },
-                            child: Center(
-                                child: Icon(
-                              MdiIcons.bell,
-                              color: Colors.white,
+                    child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          debugPrint('Top Bar Notification Icon');
+                        },
+                        child: Center(
+                            child: Icon(
+                          MdiIcons.bell,
+                          color: Colors.white,
+                        )),
+                        style: OutlinedButton.styleFrom(
+                            shape: CircleBorder(),
+                            shadowColor: Colors.white,
+                            padding: EdgeInsets.all(1),
+                            side: BorderSide(color: Colors.white, width: 2)),
+                      ),
+                      Obx(() => tabbarController.sProfileImage == ''
+                          ? CircleAvatar(
+                              radius: 25, //radius is 50
+                              backgroundImage:
+                                  AssetImage('assets/images/background/useravaathar.png'),
+                              //image url
+                            )
+                          : CircleAvatar(
+                              radius: 25, //radius is 50
+                              backgroundImage: NetworkImage(
+                                  'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/yzvorwwd042nwikbs0xb'), //image url
                             )),
-                            style: OutlinedButton.styleFrom(
-                                shape: CircleBorder(),
-                                shadowColor: Colors.white,
-                                padding: EdgeInsets.all(1),
-                                side:
-                                    BorderSide(color: Colors.white, width: 2)),
-                          ),
-                          Obx(() => tabbarController.sProfileImage == ''
-                              ? CircleAvatar(
-                                  radius: 25, //radius is 50
-                                  backgroundImage: AssetImage(
-                                      'assets/images/background/useravaathar.png'),
-                                  //image url
-                                )
-                              : CircleAvatar(
-                                  radius: 25, //radius is 50
-                                  backgroundImage: NetworkImage(
-                                      'https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/yzvorwwd042nwikbs0xb'), //image url
-                                )),
-                        ]))),
+                    ]))),
           ),
         ]));
   }

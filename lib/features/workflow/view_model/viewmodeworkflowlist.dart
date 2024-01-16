@@ -6,10 +6,7 @@ import 'package:ez/features/workflow/model/Panel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 
-import '../../../api/workflow_repo.dart';
-import '../../../models/MenuInbox.dart';
-import '../../../utils/helper/aes_encryption.dart';
-import '../../../widgets/testinbox.dart';
+import '../../../core/v5/models/MenuInbox.dart';
 import '../repository/repositorylist.dart';
 
 class WorkflowListViewModel extends ChangeNotifier {

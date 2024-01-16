@@ -1,10 +1,10 @@
-import 'package:ez/controllers/session_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../../../controllers/topbar_controller.dart'; //357
 
+import '../../../core/v5/controllers/session_controller.dart';
+import '../../../core/v5/controllers/topbar_controller.dart';
 import '../../test/widgets/text_input_searchable.dart';
 
 class TopBarDesign extends StatefulWidget {

@@ -5,25 +5,27 @@ import 'package:ez/core/utils/strings.dart';
 import 'package:ez/features/workflow/view_model/viewmodel.dart';
 import 'package:ez/layouts/process/widgets/main_drawer.dart';
 import 'package:ez/routes.dart';
-import 'package:ez/widgets/button.dart';
+
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../../../core/CustomAppBar.dart';
-import '../../../models/popup/form/components/Labels.dart';
-import '../../../models/popup/form/components/bottomup_table.dart';
-import '../../../models/popup/form/components/check_box_input.dart';
-import '../../../models/popup/form/components/date_input.dart';
-import '../../../models/popup/form/components/datetime_input.dart';
-import '../../../models/popup/form/components/divider.dart';
-import '../../../models/popup/form/components/dropdown_main.dart';
-import '../../../models/popup/form/components/dropdown_main_api.dart';
-import '../../../models/popup/form/components/number_increment.dart';
-import '../../../models/popup/form/components/text_input.dart';
+import '../../../core/v5/models/popup/form/components/Labels.dart';
+import '../../../core/v5/models/popup/form/components/bottomup_table.dart';
+import '../../../core/v5/models/popup/form/components/check_box_input.dart';
+import '../../../core/v5/models/popup/form/components/date_input.dart';
+import '../../../core/v5/models/popup/form/components/datetime_input.dart';
+import '../../../core/v5/models/popup/form/components/divider.dart';
+import '../../../core/v5/models/popup/form/components/dropdown_main.dart';
+import '../../../core/v5/models/popup/form/components/dropdown_main_api.dart';
+import '../../../core/v5/models/popup/form/components/number_increment.dart';
+import '../../../core/v5/models/popup/form/components/text_input.dart';
+import '../../../core/v5/models/popup/form/components/time_input.dart';
+import '../../../core/v5/models/popup/form/controllers/panel_controller.dart';
+import '../../../core/v5/widgets/button.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
-import '../../../models/popup/form/components/time_input.dart';
-import '../../../models/popup/form/controllers/panel_controller.dart';
 
 class Workflow extends StatefulWidget {
   const Workflow({Key? key}) : super(key: key);

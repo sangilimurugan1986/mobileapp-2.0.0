@@ -1,7 +1,8 @@
 import 'package:ez/features/dashboard/repository/repository.dart';
-import '../../../api/auth_repo.dart';
+
 import '../../../core/ApiClient/ApiService.dart';
-import '../../../utils/helper/aes_encryption.dart';
+import '../../../core/v5/api/auth_repo.dart';
+import '../../../core/v5/utils/helper/aes_encryption.dart';
 
 class DashboardRepoImpl implements DashboardRepo {
   final FileManager apiService;

@@ -8,4 +8,7 @@ class EndPoint {
   static const loginsocialGoogle = "authentication/socialLogin";
   static const getuserDetails = "authentication/userSession";
   static const formworkflowinitiate = 'form/';
+  static const api_taskList = '';
+
+  static getPath(var method) {}
 }

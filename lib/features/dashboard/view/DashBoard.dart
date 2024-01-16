@@ -4,20 +4,19 @@ import 'package:ez/core/CustomColors.dart';
 
 import 'package:ez/layouts/process/widgets/main_drawer.dart';
 import 'package:ez/routes.dart';
-import 'package:ez/widgets/button.dart';
+
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import '../../../controllers/session_controller.dart';
-import '../../../controllers/treeboxlistviewcontroller.dart';
+
 import '../../../core/CustomAppBar.dart';
+import '../../../core/v5/widgets/inboxtext.dart';
 import '../../../layouts/search/controller/searchlayout_controller.dart';
-import '../../../models/MenuInbox.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 
-import '../../../widgets/inboxtext.dart';
 import '../view_model/viewmodedashboard.dart';
 
 class Dashboard extends StatefulWidget {
@@ -76,7 +75,7 @@ class _DashBoardBuilderState extends State<Dashboard> {
                             Container(
                                 // width: double.infinity,
                                 // color: Colors.yellow,
-                                padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                                padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
                                 child: Center(
                                     child: Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
                                   Container(
@@ -97,7 +96,10 @@ class _DashBoardBuilderState extends State<Dashboard> {
                                                     color: Colors.indigoAccent,
                                                   ))),
                                           VerticalDivider(
-                                              color: Colors.white, thickness: 1, indent: 7),
+                                              //
+                                              color: Colors.white,
+                                              thickness: 1,
+                                              indent: 7),
                                           GestureDetector(
                                               onTap: () {
                                                 WidgetsBinding.instance.addPostFrameCallback((_) {

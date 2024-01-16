@@ -2,8 +2,8 @@ import 'package:ez/layouts/test/widgets/text_input_searchable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import '../../controllers/topbar_controller.dart';
 
+import '../../core/v5/controllers/topbar_controller.dart';
 import '../test/widgets/browse_view_bottom_bar.dart';
 import '../test/widgets/main_drawer.dart';
 import '../test/widgets/topbar.dart';

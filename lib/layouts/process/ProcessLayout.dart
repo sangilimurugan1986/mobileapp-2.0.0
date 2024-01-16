@@ -3,8 +3,7 @@ import 'package:ez/layouts/process/widgets/main_drawer.dart';
 import 'package:ez/layouts/process/widgets/topbar.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../../config/theme.dart';
-import '../../widgets/inboxtext.dart';
+
 import '../auth/widgets/fab.dart';
 import 'package:get/get.dart';
 import '../auth/widgets/safe_container.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../../controllers/session_controller.dart';
+import '../../../core/v5/controllers/session_controller.dart';
 import '../controller/searchlayout_controller.dart';
 
 class UserTile extends StatelessWidget {
@@ -21,10 +21,8 @@ class UserTile extends StatelessWidget {
             SizedBox(width: 10),
             // avatar
             CircleAvatar(
-              foregroundImage:
-                  AssetImage('assets/images/background/useravaathar.png'),
-              backgroundImage:
-                  NetworkImage(sessionController.Userdata.value.profileUrl),
+              foregroundImage: AssetImage('assets/images/background/useravaathar.png'),
+              backgroundImage: NetworkImage(sessionController.Userdata.value.profileUrl),
               radius: 24,
             ),
 
