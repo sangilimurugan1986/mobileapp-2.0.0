@@ -150,7 +150,7 @@ class AppRoutes {
     GetPage(name: '/noConnection', page: () => LostConnection()),
     GetPage(
         name: '/loginscreen',
-        page: () => PageMain(),
+        page: () => LoginPage(),
 /*         page: () => CustomRating(
                rating: rating,
                onRatingChanged: (rate) {
